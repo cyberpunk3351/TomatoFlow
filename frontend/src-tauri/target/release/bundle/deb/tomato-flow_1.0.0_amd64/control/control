@@ -1,9 +1,0 @@
-Package: tomato-flow
-Version: 1.0.0
-Architecture: amd64
-Installed-Size: 7462
-Maintainer: cyberpunk3351
-Priority: optional
-Depends: libwebkit2gtk-4.0-37, libgtk-3-0
-Description: Self-hosted Pomodoro timer
- TomatoFlow is a beautiful self-hosted Pomodoro timer.
