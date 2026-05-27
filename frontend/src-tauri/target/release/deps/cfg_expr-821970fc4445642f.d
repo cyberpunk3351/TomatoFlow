@@ -1,0 +1,13 @@
+/app/frontend/src-tauri/target/release/deps/cfg_expr-821970fc4445642f.d: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/lib.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/error.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/lexer.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/parser.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets/builtins.rs
+
+/app/frontend/src-tauri/target/release/deps/libcfg_expr-821970fc4445642f.rlib: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/lib.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/error.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/lexer.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/parser.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets/builtins.rs
+
+/app/frontend/src-tauri/target/release/deps/libcfg_expr-821970fc4445642f.rmeta: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/lib.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/error.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/lexer.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/parser.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets/builtins.rs
+
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/lib.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/error.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/lexer.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/expr/parser.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-expr-0.9.1/src/targets/builtins.rs:

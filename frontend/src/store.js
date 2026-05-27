@@ -2,13 +2,14 @@ import { reactive } from 'vue';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-const api = axios.create({ baseURL: API_URL });
+const DEFAULT_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const api = axios.create({ baseURL: DEFAULT_API_URL });
 
 export const store = reactive({
   // State variables
   activeTab: 'timer',
   socketConnected: false,
+  needsServerUrl: false, // Tauri custom URL config check
   timerState: {
     status: 'idle',
     type: 'work',
@@ -35,18 +36,42 @@ export const store = reactive({
 
   // Socket reference
   socket: null,
+  currentApiUrl: DEFAULT_API_URL,
 
   // Initialize all connections
   async init() {
-    this.connectSocket();
+    const isTauri = typeof window !== 'undefined' && window.__TAURI_METADATA__ !== undefined || window.__TAURI__ !== undefined;
+    
+    if (isTauri) {
+      const storedUrl = localStorage.getItem('server_url');
+      if (storedUrl) {
+        this.currentApiUrl = storedUrl;
+        api.defaults.baseURL = storedUrl;
+        this.connectSocket(storedUrl);
+        await this.loadAllData();
+      } else {
+        this.needsServerUrl = true;
+      }
+    } else {
+      this.connectSocket(DEFAULT_API_URL);
+      await this.loadAllData();
+    }
+  },
+
+  async loadAllData() {
     await this.fetchSettings();
     await this.fetchTasks();
     await this.fetchStats();
   },
 
-  // Connect to backend WebSockets
-  connectSocket() {
-    this.socket = io(API_URL);
+  // Connect to backend WebSockets with dynamic URL
+  connectSocket(url) {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+
+    console.log(`Connecting socket to: ${url}`);
+    this.socket = io(url);
 
     this.socket.on('connect', () => {
       this.socketConnected = true;
@@ -71,6 +96,29 @@ export const store = reactive({
       this.fetchTasks();
       this.fetchStats();
     });
+  },
+
+  // Tauri Server URL Helpers
+  async saveServerUrl(url) {
+    if (!url) return;
+    // Clean up trailing slash
+    const cleanUrl = url.replace(/\/$/, "");
+    this.currentApiUrl = cleanUrl;
+    api.defaults.baseURL = cleanUrl;
+    localStorage.setItem('server_url', cleanUrl);
+    this.connectSocket(cleanUrl);
+    this.needsServerUrl = false;
+    await this.loadAllData();
+  },
+
+  resetServerUrl() {
+    localStorage.removeItem('server_url');
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = null;
+    }
+    this.socketConnected = false;
+    this.needsServerUrl = true;
   },
 
   // Socket Actions

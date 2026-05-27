@@ -1,14 +1,26 @@
 <script setup>
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, ref } from 'vue';
 import { store } from './store';
 import Timer from './components/Timer.vue';
 import TaskList from './components/TaskList.vue';
 import Stats from './components/Stats.vue';
 import Settings from './components/Settings.vue';
-import { Timer as TimerIcon, CheckSquare, BarChart3, Settings2, Wifi, WifiOff } from 'lucide-vue-next';
+import { Timer as TimerIcon, CheckSquare, BarChart3, Settings2 } from 'lucide-vue-next';
+
+const serverUrlInput = ref('');
+
+const saveServerUrl = () => {
+  if (serverUrlInput.value) {
+    store.saveServerUrl(serverUrlInput.value);
+  }
+};
 
 onMounted(() => {
   store.init();
+  // Pre-fill input if there's a current API URL
+  if (store.currentApiUrl) {
+    serverUrlInput.value = store.currentApiUrl;
+  }
 });
 
 // Update the root document class to apply the current theme's CSS variables
@@ -32,6 +44,47 @@ watch(
     <!-- Background grid lines/decoration -->
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))] pointer-events-none"></div>
     <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.005)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.005)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none opacity-30"></div>
+
+    <!-- Server URL Config Overlay (Tauri Desktop only) -->
+    <transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="transition duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+    >
+      <div v-if="store.needsServerUrl" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-8 max-w-sm w-full border-slate-800 shadow-2xl space-y-6 text-center">
+          <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto animate-bounce">
+            <span class="text-3xl">🍅</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-100 tracking-tight">Connect to TomatoFlow</h2>
+            <p class="text-xs text-slate-400 mt-1.5">Enter your self-hosted backend server URL to synchronize your data.</p>
+          </div>
+          
+          <form @submit.prevent="saveServerUrl" class="space-y-4 text-left">
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Server API URL</label>
+              <input 
+                v-model="serverUrlInput" 
+                type="url" 
+                placeholder="http://192.168.1.50:3000" 
+                required
+                class="w-full bg-slate-900 border border-slate-800 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-slate-100 px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-all duration-200"
+              />
+            </div>
+            <button 
+              type="submit" 
+              class="w-full bg-primary hover:bg-primary-dark text-slate-950 font-bold py-3 rounded-xl text-xs transition-all duration-200 cursor-pointer shadow-lg shadow-primary/10"
+            >
+              Connect Server
+            </button>
+          </form>
+        </div>
+      </div>
+    </transition>
 
     <!-- Header Navigation -->
     <header class="w-full max-w-xl mx-auto px-4 pt-6 pb-2 z-10">
@@ -128,6 +181,24 @@ watch(
     </footer>
   </div>
 </template>
+
+<style>
+/* View transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+</style>
 
 <style>
 /* View transitions */

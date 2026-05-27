@@ -37,6 +37,12 @@ const saveSettings = async () => {
 const testSound = () => {
   store.playChime('work');
 };
+
+const isTauri = typeof window !== 'undefined' && (window.__TAURI_METADATA__ !== undefined || window.__TAURI__ !== undefined);
+
+const disconnectServer = () => {
+  store.resetServerUrl();
+};
 </script>
 
 <template>
@@ -176,6 +182,26 @@ const testSound = () => {
             class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer"
           >
             Play Sound Tone
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Tauri Server Connection (Only shown if running in Tauri desktop) -->
+      <div v-if="isTauri" class="glass-card rounded-2xl p-5 border-slate-800/80 space-y-4">
+        <h3 class="text-sm font-bold text-slate-200 flex items-center space-x-2">
+          <Settings2 class="w-4.5 h-4.5 text-primary" />
+          <span>Server Connection</span>
+        </h3>
+        <div class="flex justify-between items-center py-1">
+          <div class="min-w-0 pr-4">
+            <h4 class="text-xs font-bold text-slate-200">Connected Server</h4>
+            <p class="text-[10px] text-slate-500 mt-0.5 truncate">{{ store.currentApiUrl }}</p>
+          </div>
+          <button 
+            @click="disconnectServer"
+            class="px-3.5 py-1.5 bg-rose-950/20 hover:bg-rose-950/40 text-rose-300 border border-rose-900/30 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer shrink-0"
+          >
+            Disconnect
           </button>
         </div>
       </div>

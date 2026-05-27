@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Utility;
+Comment=Self-hosted Pomodoro timer
+Exec=tomato-flow
+Icon=tomato-flow
+Name=TomatoFlow
+Terminal=false
+Type=Application

@@ -1,0 +1,37 @@
+FROM ubuntu:22.04
+
+# Avoid prompt choices during install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install required build packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    zsync \
+    build-essential \
+    libssl-dev \
+    libgtk-3-dev \
+    libwebkit2gtk-4.0-dev \
+    libwebkit2gtk-4.1-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev \
+    patchelf \
+    libfuse2 \
+    file \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust (stable toolchain)
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
+# Configure env to run AppImage utilities inside unprivileged Docker containers
+ENV APPIMAGE_EXTRACT_AND_RUN=1
+
+WORKDIR /app
+
+# Commands to build UI assets, generate Tauri icons from the source image, and compile the final AppImage
+CMD ["sh", "-c", "cd frontend && npm install && npx tauri icon app-icon.png && npx tauri build --verbose"]

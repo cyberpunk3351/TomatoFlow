@@ -5,6 +5,9 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+*.AppImage
+*.deb
+src-tauri/target/
 
 # IDEs and editors
 .idea/
