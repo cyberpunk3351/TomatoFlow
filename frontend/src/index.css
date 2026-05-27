@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+  
+  --color-primary: var(--primary-color);
+  --color-primary-light: var(--primary-light-color);
+  --color-primary-dark: var(--primary-dark-color);
+  
+  --color-bg-gradient-start: var(--bg-grad-start);
+  --color-bg-gradient-end: var(--bg-grad-end);
+}
+
+/* Base styles for premium UI elements */
+:root {
+  /* Default/Focus Mode (Warm Coral Red) */
+  --primary-color: #f05252;
+  --primary-light-color: #f87171;
+  --primary-dark-color: #c81e1e;
+  --bg-grad-start: #0a0a14;
+  --bg-grad-end: #1a0b0d;
+}
+
+/* Theme configurations */
+.theme-work {
+  --primary-color: #f43f5e; /* rose-500 */
+  --primary-light-color: #fda4af; /* rose-300 */
+  --primary-dark-color: #be123c; /* rose-700 */
+  --bg-grad-start: #08070b;
+  --bg-grad-end: #1e0910;
+}
+
+.theme-short_break {
+  --primary-color: #10b981; /* emerald-500 */
+  --primary-light-color: #6ee7b7; /* emerald-300 */
+  --primary-dark-color: #047857; /* emerald-700 */
+  --bg-grad-start: #060908;
+  --bg-grad-end: #091c13;
+}
+
+.theme-long_break {
+  --primary-color: #3b82f6; /* blue-500 */
+  --primary-light-color: #93c5fd; /* blue-300 */
+  --primary-dark-color: #1d4ed8; /* blue-700 */
+  --bg-grad-start: #05070a;
+  --bg-grad-end: #08152e;
+}
+
+:root, body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Glassmorphism styling */
+.glass-card {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card-hover:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+.pulse-slow {
+  animation: pulse-slow 4s infinite ease-in-out;
+}
